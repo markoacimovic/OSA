@@ -1,6 +1,6 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.AkcijaDTO;
+import rs.ftn.osa.dto.AkcijaDTO;
 
 import javax.persistence.*;
 import java.util.Date;

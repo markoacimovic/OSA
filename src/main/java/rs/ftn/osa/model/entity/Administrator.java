@@ -1,10 +1,12 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.AdministratorDTO;
+import org.springframework.security.core.GrantedAuthority;
+import rs.ftn.osa.dto.AdministratorDTO;
 import rs.ftn.osa.model.enums.UserRole;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Collection;
 
 @Entity
 @Table(name = "administrator")
@@ -25,4 +27,6 @@ public class Administrator extends Korisnik {
         this.prezime = administratorDTO.getPrezime();
         this.username = administratorDTO.getUsername();
     }
+
+
 }

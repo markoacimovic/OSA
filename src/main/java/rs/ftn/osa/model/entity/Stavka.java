@@ -1,6 +1,6 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.StavkaDTO;
+import rs.ftn.osa.dto.StavkaDTO;
 
 import javax.persistence.*;
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ftn.osa.model.dto.AkcijaDTO;
+import rs.ftn.osa.dto.AkcijaDTO;
 import rs.ftn.osa.model.entity.Akcija;
 import rs.ftn.osa.model.entity.Prodavac;
 import rs.ftn.osa.service.IAkcijaService;
@@ -67,7 +67,7 @@ public class AkcijaController {
         akcija.setDoKad(akcijaDTO.getDoKad());
         akcija.setTekst(akcijaDTO.getTekst());
 
-        akcijaService.save(akcija);
+        akcija = akcijaService.save(akcija);
 
         return new ResponseEntity<>(new AkcijaDTO(akcija), HttpStatus.OK);
     }

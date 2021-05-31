@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ftn.osa.model.dto.KupacDTO;
+import rs.ftn.osa.dto.KupacDTO;
 import rs.ftn.osa.model.entity.Kupac;
 import rs.ftn.osa.service.implementation.KupacService;
 
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/kupac")
+@RequestMapping("/kupci")
 public class KupacController {
 
     @Autowired

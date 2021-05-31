@@ -1,4 +1,4 @@
-package rs.ftn.osa.model.dto;
+package rs.ftn.osa.dto;
 
 import rs.ftn.osa.model.enums.TipKorisnika;
 

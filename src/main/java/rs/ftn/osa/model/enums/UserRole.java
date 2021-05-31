@@ -1,7 +1,7 @@
 package rs.ftn.osa.model.enums;
 
 public enum UserRole {
-    ADMIN,
+    ADMINISTRATOR,
     KUPAC,
     PRODAVAC
 }

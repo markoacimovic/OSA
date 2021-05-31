@@ -1,27 +1,29 @@
-package rs.ftn.osa.model.dto;
+package rs.ftn.osa.dto;
 
-import rs.ftn.osa.model.entity.Administrator;
+import rs.ftn.osa.model.entity.Kupac;
 
-public class AdministratorDTO {
+public class KupacDTO {
 
     private Long id;
     private String ime;
     private String prezime;
     private String username;
+    private String adresa;
 
-
-    public AdministratorDTO(Long id, String ime, String prezime, String username) {
+    public KupacDTO(Long id, String ime, String prezime, String username, String adresa) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
+        this.adresa = adresa;
     }
 
-    public AdministratorDTO(Administrator administrator) {
-        this.id = administrator.getId();
-        this.ime = administrator.getIme();
-        this.prezime = administrator.getPrezime();
-        this.username = administrator.getUsername();
+    public KupacDTO(Kupac kupac) {
+        this.id = kupac.getId();
+        this.ime = kupac.getIme();
+        this.prezime = kupac.getPrezime();
+        this.username = kupac.getUsername();
+        this.adresa = kupac.getAdresa();
     }
 
     public Long getId() {
@@ -54,5 +56,13 @@ public class AdministratorDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 }

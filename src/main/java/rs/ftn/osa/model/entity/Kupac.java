@@ -1,9 +1,11 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.KupacDTO;
+import org.springframework.security.core.GrantedAuthority;
+import rs.ftn.osa.dto.KupacDTO;
 import rs.ftn.osa.model.enums.UserRole;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -66,4 +68,5 @@ public class Kupac extends Korisnik {
                 ", adresa='" + adresa + '\'' +
                 '}';
     }
+
 }

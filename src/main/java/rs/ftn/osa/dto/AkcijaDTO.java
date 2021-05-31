@@ -1,4 +1,4 @@
-package rs.ftn.osa.model.dto;
+package rs.ftn.osa.dto;
 
 import rs.ftn.osa.model.entity.Akcija;
 
@@ -11,15 +11,15 @@ public class AkcijaDTO {
     private Date odKad;
     private Date doKad;
     private String tekst;
-    private ProdavacDTO prodavac;
+    private long prodavacId;
 
-    public AkcijaDTO(Long id, int procenat, Date odKad, Date doKad, String tekst, ProdavacDTO prodavac) {
+    public AkcijaDTO(Long id, int procenat, Date odKad, Date doKad, String tekst, long prodavacId) {
         this.id = id;
         this.procenat = procenat;
         this.odKad = odKad;
         this.doKad = doKad;
         this.tekst = tekst;
-        this.prodavac = prodavac;
+        this.prodavacId = prodavacId;
     }
 
     public AkcijaDTO(Akcija akcija) {
@@ -28,7 +28,7 @@ public class AkcijaDTO {
         this.odKad = akcija.getOdKad();
         this.doKad = akcija.getDoKad();
         this.tekst = akcija.getTekst();
-        this.prodavac = new ProdavacDTO(akcija.getProdavac());
+        this.prodavacId = akcija.getProdavac().getId();
     }
 
     public Long getId() {
@@ -71,11 +71,11 @@ public class AkcijaDTO {
         this.tekst = tekst;
     }
 
-    public ProdavacDTO getProdavac() {
-        return prodavac;
+    public long getProdavacId() {
+        return prodavacId;
     }
 
-    public void setProdavac(ProdavacDTO prodavac) {
-        this.prodavac = prodavac;
+    public void setProdavac(long prodavacId) {
+        this.prodavacId = prodavacId;
     }
 }

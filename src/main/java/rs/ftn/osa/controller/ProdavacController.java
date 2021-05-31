@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ftn.osa.model.dto.ProdavacDTO;
+import rs.ftn.osa.dto.ProdavacDTO;
 import rs.ftn.osa.model.entity.Prodavac;
 import rs.ftn.osa.service.implementation.ProdavacService;
 
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/prodavac}")
+@RequestMapping(value = "/prodavci")
 public class ProdavacController {
 
     @Autowired

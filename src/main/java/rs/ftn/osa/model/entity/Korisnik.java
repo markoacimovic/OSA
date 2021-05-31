@@ -1,12 +1,13 @@
 package rs.ftn.osa.model.entity;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import rs.ftn.osa.model.enums.UserRole;
 
 import javax.persistence.*;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-public abstract class Korisnik {
+public abstract class Korisnik{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +30,7 @@ public abstract class Korisnik {
     protected boolean blokiran;
 
     @Column(name = "tip_korisnika", unique = false, nullable = false)
+    @Enumerated(EnumType.STRING)
     protected UserRole userRole;
 
     public Korisnik() {

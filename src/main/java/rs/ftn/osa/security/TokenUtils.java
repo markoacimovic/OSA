@@ -20,18 +20,22 @@ public class TokenUtils {
     @Value("3600")
     private Long expiration;
 
+    //Uzimanje username iz tokena
     public String getUsernameFromToken(String token) {
 
         String username;
         try {
             Claims claims = this.getClaimsFromToken(token);
             username = claims.getSubject();
+            System.out.println("Ovo je claims "+username);
+            System.out.println("Ovo je username "+username);
         } catch (Exception e) {
             username = null;
         }
         return username;
     }
 
+    //Uzimanje podataka iz tokena
     private Claims getClaimsFromToken(String token) {
 
         Claims claims;
@@ -44,6 +48,7 @@ public class TokenUtils {
         return claims;
     }
 
+    //Uzimanje datuma za istek iz tokena
     public Date getExpirationDateFromToken(String token) {
 
         Date expirationDate;
@@ -76,7 +81,7 @@ public class TokenUtils {
         claims.put("role", userDetails.getAuthorities().toArray()[0]);
         claims.put("created", new Date(System.currentTimeMillis()));
         return Jwts.builder().setClaims(claims)
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 }

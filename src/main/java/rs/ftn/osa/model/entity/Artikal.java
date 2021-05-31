@@ -1,6 +1,6 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.ArtikalDTO;
+import rs.ftn.osa.dto.ArtikalDTO;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class Artikal {
     private Prodavac prodavac;
 
     @ManyToMany
-    @JoinColumn(name = "akcija", referencedColumnName = "id_akcija", nullable = false)
+    @JoinColumn(name = "akcija", referencedColumnName = "id_akcija", nullable = true)
     private Set<Akcija> akcije;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "artikal")

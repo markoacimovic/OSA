@@ -3,6 +3,7 @@ package rs.ftn.osa.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +26,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    //Podesavanje autentifikacije
     @Autowired
     public void configureAuthentication(
             AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -35,6 +36,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+    //Koji se encoder koristi
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -46,6 +48,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    //Setuje se token filter
+    @Bean
     public AuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
 
         AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
@@ -68,7 +72,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         // Make sure that client makes XHR request with withCreddentials flag set to true
 
         http
-                .csrf().disable()
                 //Naglasavamo browser-u da ne cache-ira podatke koje dobije u header-ima
                 //detaljnije: https://www.baeldung.com/spring-security-cache-control-headers
                 .headers().cacheControl().disable()
@@ -76,27 +79,27 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Neophodno da ne bi proveravali autentifikaciju kod Preflight zahteva
                 .cors()
                 .and()
+                .csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "index").permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers(HttpMethod.POST, "/prodavnica/auth/registration").permitAll()
+                .antMatchers(HttpMethod.POST, "/prodavnica/auth/login").permitAll()
+                .anyRequest().permitAll()
+                //.authenticated()
                 .and()
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
-                .loginPage("/login").permitAll()    //redirect na login page
-                .defaultSuccessUrl("/", true)  //sta posle prijave
-                .and()
-                .rememberMe() //produzuje cookie na 2 nedelje ako se izabere i kreira se novi cookie
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // ako je csrf enabled ovo se brise i logout metoda mora biti post
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "remember-me", "JWT")
-                .logoutSuccessUrl("/login");
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+//                .formLogin()
+//                .loginPage().permitAll()    redirect na login page
+//                .defaultSuccessUrl("/", true)  sta posle prijave
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // ako je csrf enabled ovo se brise i logout metoda mora biti post
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID", "JWT")
+//                .logoutSuccessUrl("/login");
     }
 }

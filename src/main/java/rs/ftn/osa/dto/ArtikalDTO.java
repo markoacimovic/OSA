@@ -1,4 +1,4 @@
-package rs.ftn.osa.model.dto;
+package rs.ftn.osa.dto;
 
 import rs.ftn.osa.model.entity.Artikal;
 
@@ -9,15 +9,15 @@ public class ArtikalDTO {
     private String opis;
     private Double cena;
     private String putanjaSlike;
-    private ProdavacDTO prodavac;
+    private long prodavacId;
 
-    public ArtikalDTO(Long id, String naziv, String opis, Double cena, String putanjaSlike, ProdavacDTO prodavac) {
+    public ArtikalDTO(Long id, String naziv, String opis, Double cena, String putanjaSlike, long prodavacId) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.cena = cena;
         this.putanjaSlike = putanjaSlike;
-        this.prodavac = prodavac;
+        this.prodavacId = prodavacId;
     }
 
     public ArtikalDTO(Artikal artikal) {
@@ -26,7 +26,7 @@ public class ArtikalDTO {
         this.opis = artikal.getOpis();
         this.cena = artikal.getCena();
         this.putanjaSlike = artikal.getPutanjaSlike();
-        this.prodavac = new ProdavacDTO(artikal.getProdavac());
+        this.prodavacId = artikal.getProdavac().getId();
     }
 
     public Long getId() {
@@ -69,11 +69,11 @@ public class ArtikalDTO {
         this.putanjaSlike = putanjaSlike;
     }
 
-    public ProdavacDTO getProdavac() {
-        return prodavac;
+    public long getProdavacId() {
+        return prodavacId;
     }
 
-    public void setProdavac(ProdavacDTO prodavac) {
-        this.prodavac = prodavac;
+    public void setProdavac(long prodavacId) {
+        this.prodavacId = prodavacId;
     }
 }

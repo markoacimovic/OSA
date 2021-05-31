@@ -1,4 +1,4 @@
-package rs.ftn.osa.model.dto;
+package rs.ftn.osa.dto;
 
 public class PrijavaDTO {
 

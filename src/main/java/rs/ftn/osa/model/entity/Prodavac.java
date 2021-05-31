@@ -1,10 +1,12 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.model.dto.ProdavacDTO;
+import org.springframework.security.core.GrantedAuthority;
+import rs.ftn.osa.dto.ProdavacDTO;
 import rs.ftn.osa.model.enums.UserRole;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -117,4 +119,5 @@ public class Prodavac extends Korisnik {
                 ", adresa='" + adresa + '\'' +
                 '}';
     }
+
 }
