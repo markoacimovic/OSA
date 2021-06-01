@@ -20,7 +20,7 @@ public abstract class Korisnik{
     @Column(name = "prezime", unique = false, nullable = false)
     protected String prezime;
 
-    @Column(name = "username", unique = false, nullable = false)
+    @Column(name = "username", unique = true, nullable = false)
     protected String username;
 
     @Column(name = "password", unique = false, nullable = false)
