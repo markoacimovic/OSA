@@ -12,6 +12,10 @@ public class PorudzbinaDTO {
     private int ocena;
     private String komentar;
     private boolean anonimniKomentar;
+    private String prodavac;
+
+    public PorudzbinaDTO() {
+    }
 
     public PorudzbinaDTO(Long id, Date satnica, boolean dostavljeno, int ocena, String komentar, boolean anonimniKomentar) {
         this.id = id;
@@ -29,6 +33,14 @@ public class PorudzbinaDTO {
         this.ocena = porudzbina.getOcena();
         this.komentar = porudzbina.getKomentar();
         this.anonimniKomentar = porudzbina.isAnonimniKomentar();
+    }
+
+    public String getProdavac() {
+        return prodavac;
+    }
+
+    public void setProdavac(String prodavac) {
+        this.prodavac = prodavac;
     }
 
     public Long getId() {

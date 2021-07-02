@@ -39,14 +39,12 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
 
         String username = tokenUtils.getUsernameFromToken(token);
 
-        System.out.println("Ovo je context "+SecurityContextHolder.getContext().getAuthentication());
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             if (tokenUtils.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
-                System.out.println(userDetails);
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource()
                         .buildDetails(httpServletRequest));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

@@ -12,12 +12,15 @@ import rs.ftn.osa.service.implementation.ArtikalService;
 import rs.ftn.osa.service.implementation.ProdavacService;
 
 import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @RequestMapping("/artikli")
+@CrossOrigin
 public class ArtikalController {
 
     @Autowired
@@ -42,6 +45,19 @@ public class ArtikalController {
         return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 
+    @PermitAll
+    @GetMapping("/{username}/artikli")
+    public ResponseEntity<List<ArtikalDTO>> getArtikalsForProdavac(@PathVariable String username){
+
+        List<Artikal> artikli = artikalService.findAllByProdavac(username);
+        List<ArtikalDTO> retVal = new ArrayList<>();
+
+        for (Artikal artikal : artikli){
+            retVal.add(new ArtikalDTO(artikal));
+        }
+        return new ResponseEntity<>(retVal, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasAnyRole('KUPAC, PRODAVAC, ADMINISTRATOR')")
     @GetMapping("/{id}")
     public ResponseEntity<ArtikalDTO> getArtikal(@PathVariable long id) {
@@ -55,7 +71,7 @@ public class ArtikalController {
 
     @PreAuthorize("hasRole('PRODAVAC')")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<ArtikalDTO> createArtikal(@RequestBody ArtikalDTO artikalDTO){
+    public ResponseEntity<ArtikalDTO> createArtikal(@RequestBody ArtikalDTO artikalDTO, Principal principal){
 
         Artikal artikal = new Artikal();
         artikal.setNaziv(artikalDTO.getNaziv());
@@ -63,7 +79,7 @@ public class ArtikalController {
         artikal.setOpis(artikalDTO.getOpis());
         artikal.setPutanjaSlike(artikalDTO.getPutanjaSlike());
         artikal.setAkcije(new HashSet<>());
-        artikal.setProdavac(prodavacService.findOne(artikalDTO.getProdavacId()));
+        artikal.setProdavac(prodavacService.findByUsername(principal.getName()));
         artikal.setStavke(new HashSet<>());
 
         artikal = artikalService.save(artikal);
@@ -73,9 +89,10 @@ public class ArtikalController {
     @PreAuthorize("hasRole('PRODAVAC')")
     @PutMapping(value = "/{id}", consumes = "application/json")
     public ResponseEntity<ArtikalDTO> updateArtikal(@PathVariable("id") long id,
-                                                    @RequestBody ArtikalDTO artikalDTO){
+                                                    @RequestBody ArtikalDTO artikalDTO, Principal principal){
 
         Artikal artikal = artikalService.findOne(id);
+        System.out.println(id);
         if(artikal == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -83,7 +100,7 @@ public class ArtikalController {
         artikal.setCena(artikalDTO.getCena());
         artikal.setOpis(artikalDTO.getOpis());
         artikal.setPutanjaSlike(artikalDTO.getPutanjaSlike());
-        artikal.setProdavac(prodavacService.findOne(artikalDTO.getProdavacId()));
+        artikal.setProdavac(prodavacService.findByUsername(principal.getName()));
 
         artikal = artikalService.save(artikal);
         return new ResponseEntity<>(new ArtikalDTO(artikal), HttpStatus.OK);
@@ -91,14 +108,18 @@ public class ArtikalController {
 
     @PreAuthorize("hasRole('PRODAVAC')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteArtikal(@PathVariable("id") long id){
+    public ResponseEntity<Void> deleteArtikal(@PathVariable("id") long id, Principal principal){
 
         Artikal artikal = artikalService.findOne(id);
+        if(!artikal.getProdavac().getUsername().equals(principal.getName())){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         if(artikal == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         artikalService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
 

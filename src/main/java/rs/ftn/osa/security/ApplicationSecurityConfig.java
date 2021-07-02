@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -93,13 +94,13 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .formLogin()
 //                .loginPage().permitAll()    redirect na login page
 //                .defaultSuccessUrl("/", true)  sta posle prijave
-//                .and()
 //                .logout()
-//                .logoutUrl("/logout")
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // ako je csrf enabled ovo se brise i logout metoda mora biti post
+//                .logoutUrl("/auth/logout")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "GET")) // ako je csrf enabled ovo se brise i logout metoda mora biti post
 //                .clearAuthentication(true)
 //                .invalidateHttpSession(true)
 //                .deleteCookies("JSESSIONID", "JWT")
-//                .logoutSuccessUrl("/login");
+//                .logoutSuccessUrl("/login")
+//                .permitAll();
     }
 }

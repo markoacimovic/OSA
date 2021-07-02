@@ -12,15 +12,17 @@ public class ProdavacDTO {
     private String username;
     private String adresa;
     private LocalDate poslujeOd;
+    private String naziv;
     private String email;
 
-    public ProdavacDTO(Long id, String ime, String prezime, String username, String adresa, LocalDate poslujeOd, String email) {
+    public ProdavacDTO(Long id, String ime, String prezime, String username, String adresa, String naziv, LocalDate poslujeOd, String email) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.username = username;
         this.adresa = adresa;
         this.poslujeOd = poslujeOd;
+        this.naziv = naziv;
         this.email = email;
     }
 
@@ -31,6 +33,7 @@ public class ProdavacDTO {
         this.username = prodavac.getUsername();
         this.adresa = prodavac.getAdresa();
         this.poslujeOd = prodavac.getPoslujeOd();
+        this.naziv = prodavac.getNaziv();
         this.email = prodavac.getEmail();
     }
 
@@ -88,5 +91,13 @@ public class ProdavacDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 }

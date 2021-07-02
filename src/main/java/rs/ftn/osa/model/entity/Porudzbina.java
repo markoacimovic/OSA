@@ -21,16 +21,16 @@ public class Porudzbina {
     @Column(name = "dostavljeno", unique = false, nullable = false)
     private boolean dostavljeno;
 
-    @Column(name = "ocena", unique = false, nullable = false)
+    @Column(name = "ocena", unique = false, nullable = true)
     private int ocena;
 
-    @Column(name = "komentar", unique = false, nullable = false)
+    @Column(name = "komentar", unique = false, nullable = true)
     private String komentar;
 
-    @Column(name = "anonimni_komentar", unique = false, nullable = false)
+    @Column(name = "anonimni_komentar", unique = false, nullable = true)
     private boolean anonimniKomentar;
 
-    @Column(name = "arhivirani_komentar", unique = false, nullable = false)
+    @Column(name = "arhivirani_komentar", unique = false, nullable = true)
     private boolean arhiviraniKomentar;
 
     @ManyToOne

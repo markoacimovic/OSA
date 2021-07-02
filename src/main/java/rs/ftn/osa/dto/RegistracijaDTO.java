@@ -10,7 +10,11 @@ public class RegistracijaDTO {
     private String password;
     private String adresa;
     private String email;
+    private String naziv;
     private TipKorisnika tipKorisnika;
+
+    public RegistracijaDTO() {
+    }
 
     public RegistracijaDTO(String ime, String prezime, String username, String password, String adresa, String email, TipKorisnika tipKorisnika) {
         this.ime = ime;
@@ -19,6 +23,17 @@ public class RegistracijaDTO {
         this.password = password;
         this.adresa = adresa;
         this.email = email;
+        this.tipKorisnika = tipKorisnika;
+    }
+
+    public RegistracijaDTO(String ime, String prezime, String username, String password, String adresa, String email, String naziv, TipKorisnika tipKorisnika) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.username = username;
+        this.password = password;
+        this.adresa = adresa;
+        this.email = email;
+        this.naziv = naziv;
         this.tipKorisnika = tipKorisnika;
     }
 
@@ -68,6 +83,14 @@ public class RegistracijaDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public TipKorisnika getTipKorisnika() {

@@ -20,6 +20,11 @@ public class ArtikalService implements IArtikalService {
     }
 
     @Override
+    public List<Artikal> findAllByProdavac(String username) {
+        return artikalRepository.findArtikalsByProdavac_Username(username);
+    }
+
+    @Override
     public List<Artikal> findAll() {
         return artikalRepository.findAll();
     }

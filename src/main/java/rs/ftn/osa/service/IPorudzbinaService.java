@@ -8,6 +8,8 @@ public interface IPorudzbinaService {
 
     Porudzbina findOne(Long id);
 
+    List<Porudzbina> findPorudzbinaByKupac(String username);
+
     List<Porudzbina> findAll();
 
     Porudzbina save(Porudzbina porudzbina);

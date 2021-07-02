@@ -10,6 +10,8 @@ public interface IArtikalService {
 
     List<Artikal> findAll();
 
+    List<Artikal> findAllByProdavac(String username);
+
     Artikal save(Artikal artikal);
 
     void delete(Long id);

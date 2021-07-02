@@ -20,6 +20,11 @@ public class PorudzbinaService implements IPorudzbinaService {
     }
 
     @Override
+    public List<Porudzbina> findPorudzbinaByKupac(String username) {
+        return porudzbinaRepository.getPorudzbinaByKupac_Username(username);
+    }
+
+    @Override
     public List<Porudzbina> findAll() {
         return porudzbinaRepository.findAll();
     }

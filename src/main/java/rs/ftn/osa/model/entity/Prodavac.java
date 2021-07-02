@@ -22,6 +22,9 @@ public class Prodavac extends Korisnik {
     @Column(name = "adresa", unique = false, nullable = false)
     private String adresa;
 
+    @Column(name = "naziv", unique = false, nullable = false)
+    private String naziv;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "prodavac")
     private Set<Akcija> akcije;
 
@@ -56,15 +59,15 @@ public class Prodavac extends Korisnik {
         this.artikli = artikli;
     }
 
-    public Prodavac(ProdavacDTO prodavacDTO) {
-        this.id = prodavacDTO.getId();
-        this.ime = prodavacDTO.getIme();
-        this.prezime = prodavacDTO.getPrezime();
-        this.username = prodavacDTO.getUsername();
-        this.adresa = prodavacDTO.getAdresa();
-        this.poslujeOd = prodavacDTO.getPoslujeOd();
-        this.email = prodavacDTO.getEmail();
-    }
+//    public Prodavac(ProdavacDTO prodavacDTO) {
+//        this.id = prodavacDTO.getId();
+//        this.ime = prodavacDTO.getIme();
+//        this.prezime = prodavacDTO.getPrezime();
+//        this.username = prodavacDTO.getUsername();
+//        this.adresa = prodavacDTO.getAdresa();
+//        this.poslujeOd = prodavacDTO.getPoslujeOd();
+//        this.email = prodavacDTO.getEmail();
+//    }
 
     public LocalDate getPoslujeOd() {
         return poslujeOd;
@@ -88,6 +91,14 @@ public class Prodavac extends Korisnik {
 
     public void setAdresa(String adresa) {
         this.adresa = adresa;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
     public Set<Akcija> getAkcije() {

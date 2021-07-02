@@ -27,8 +27,6 @@ public class TokenUtils {
         try {
             Claims claims = this.getClaimsFromToken(token);
             username = claims.getSubject();
-            System.out.println("Ovo je claims "+username);
-            System.out.println("Ovo je username "+username);
         } catch (Exception e) {
             username = null;
         }

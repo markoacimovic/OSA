@@ -9,15 +9,13 @@ public class ArtikalDTO {
     private String opis;
     private Double cena;
     private String putanjaSlike;
-    private long prodavacId;
 
-    public ArtikalDTO(Long id, String naziv, String opis, Double cena, String putanjaSlike, long prodavacId) {
+    public ArtikalDTO(Long id, String naziv, String opis, Double cena, String putanjaSlike) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.cena = cena;
         this.putanjaSlike = putanjaSlike;
-        this.prodavacId = prodavacId;
     }
 
     public ArtikalDTO(Artikal artikal) {
@@ -26,7 +24,6 @@ public class ArtikalDTO {
         this.opis = artikal.getOpis();
         this.cena = artikal.getCena();
         this.putanjaSlike = artikal.getPutanjaSlike();
-        this.prodavacId = artikal.getProdavac().getId();
     }
 
     public Long getId() {
@@ -69,11 +66,4 @@ public class ArtikalDTO {
         this.putanjaSlike = putanjaSlike;
     }
 
-    public long getProdavacId() {
-        return prodavacId;
-    }
-
-    public void setProdavac(long prodavacId) {
-        this.prodavacId = prodavacId;
-    }
 }
