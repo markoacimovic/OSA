@@ -25,6 +25,12 @@ const ProdavacHeader = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/artikli/dodavanje">Dodaj artikal</Link>
             </li>
+            <li>
+                <Link className="nav-link" to="/korisnik">Vasi podaci</Link>
+            </li>
+            <li>
+                <Link className="nav-link" to="/korisnik/lozinka">Promena lozinke</Link>
+            </li>
             <Logout/>
         </ul>
     )

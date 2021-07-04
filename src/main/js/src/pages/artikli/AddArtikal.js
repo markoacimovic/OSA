@@ -9,9 +9,9 @@ const AddArtikal = () => {
     const [artikal, setArtikal] = useState({
         naziv: "",
         opis: "",
-        cena: "",
-        putanjaSlike: ""
+        cena: ""
     })
+    const [image, setImage] = useState(null)
     const history = useHistory()
 
     const handleFormInputChange = (name) => (e) => {
@@ -19,10 +19,23 @@ const AddArtikal = () => {
         setArtikal({...artikal, [name]: val})
     }
 
-    async function create() {
+    async function update(id) {
         try {
-            await ArtikliService.createArtikal(artikal)
-        }catch (e){
+            await ArtikliService.editArtikal(id, artikal)
+        } catch (e){
+            console.error(e)
+        }
+    }
+
+    async function saveImage(){
+        try {
+            const fd = new FormData()
+            fd.append("image", image, image.name)
+            await ArtikliService.saveImage(fd).then((response) => {
+                let id = response.data
+                update(id.id)
+            })
+        } catch (e) {
             console.error(e)
         }
     }
@@ -35,7 +48,8 @@ const AddArtikal = () => {
             return;
         }
 
-        create()
+        saveImage()
+
         history.push("/prodavci/" + AuthService.getUsername())
     }
 
@@ -44,7 +58,6 @@ const AddArtikal = () => {
             <div className="row">
                 <div className="col-md-6 offset-md-3 offset-md-3">
                     <h3 className="text-center">Dodaj artikal</h3>
-                    <form>
                         <div className="form-group">
                             <label>Naziv </label>
                             <input type="text" value={artikal.naziv} onChange={handleFormInputChange("naziv")}
@@ -62,11 +75,10 @@ const AddArtikal = () => {
                         </div>
                         <div className="form-group">
                             <label>Slika </label>
-                            <input type="file" accept=".png, .jpg" className="form-control"/>
+                            <input type="file" accept=".png, .jpg" className="form-control" onChange={e => setImage(e.target.files[0])}/>
                         </div>
                         <p className="text-dark">{warning}</p>
-                        <button className="btn-lg btn-danger" type="submit" onClick={submit}>Dodaj artikal</button>
-                    </form>
+                        <button className="btn-lg btn-danger" onClick={submit}>Dodaj artikal</button>
                 </div>
             </div>
         </div>

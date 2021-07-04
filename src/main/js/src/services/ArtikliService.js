@@ -6,7 +6,8 @@ export const ArtikliService = {
     getArtikliForProdavac,
     createArtikal,
     editArtikal,
-    deleteArtikal
+    deleteArtikal,
+    saveImage
 }
 
 async function getArtikli() {
@@ -31,6 +32,10 @@ async function editArtikal(id, artikal) {
 
 async function deleteArtikal(id){
     return await AxiosClient.delete(`artikli/${id}`)
+}
+
+async function saveImage(image){
+    return await AxiosClient.post("artikli/slika", image)
 }
 
 export default ArtikliService

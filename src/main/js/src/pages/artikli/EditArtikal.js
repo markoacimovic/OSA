@@ -48,6 +48,12 @@ const EditArtikal = () => {
         setArtikal({...artikal, [name]: val})
     }
 
+    const handleImageInput = (e) => {
+        const val = e.target.files[0]
+        setArtikal({...artikal, ["slika"]: val})
+    }
+
+
     return(
         <div className="container-fluid" style={{marginTop: 50}}>
             <div className="row">
@@ -71,7 +77,7 @@ const EditArtikal = () => {
                         </div>
                         <div className="form-group">
                             <label>Slika </label>
-                            <input type="file" accept=".png, .jpg" className="form-control"/>
+                            <input type="file" accept=".png, .jpg" className="form-control" onChange={handleImageInput}/>
                         </div>
                         <p className="text-dark">{warning}</p>
                         <button className="btn-lg btn-danger" type="submit" onClick={submit}>Izmeni artikal</button>

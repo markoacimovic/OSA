@@ -5,14 +5,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import rs.ftn.osa.dto.ArtikalBackendDTO;
 import rs.ftn.osa.dto.ArtikalDTO;
+import rs.ftn.osa.dto.ArtikalIdDTO;
 import rs.ftn.osa.model.entity.Artikal;
 import rs.ftn.osa.security.TokenUtils;
 import rs.ftn.osa.service.implementation.ArtikalService;
 import rs.ftn.osa.service.implementation.ProdavacService;
+import rs.ftn.osa.support.ImageSaveOpen;
+import rs.ftn.osa.support.LoggerStatic;
 
 import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -71,13 +77,13 @@ public class ArtikalController {
 
     @PreAuthorize("hasRole('PRODAVAC')")
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<ArtikalDTO> createArtikal(@RequestBody ArtikalDTO artikalDTO, Principal principal){
+    public ResponseEntity<ArtikalDTO> createArtikal(@RequestBody ArtikalBackendDTO artikalDTO, Principal principal) throws IOException {
 
         Artikal artikal = new Artikal();
         artikal.setNaziv(artikalDTO.getNaziv());
         artikal.setCena(artikalDTO.getCena());
         artikal.setOpis(artikalDTO.getOpis());
-        artikal.setPutanjaSlike(artikalDTO.getPutanjaSlike());
+        artikal.setPutanjaSlike(ImageSaveOpen.saveImage(artikalDTO.getSlika()));
         artikal.setAkcije(new HashSet<>());
         artikal.setProdavac(prodavacService.findByUsername(principal.getName()));
         artikal.setStavke(new HashSet<>());
@@ -87,19 +93,36 @@ public class ArtikalController {
     }
 
     @PreAuthorize("hasRole('PRODAVAC')")
+    @PostMapping(value = "/slika", consumes = "multipart/form-data")
+    public ResponseEntity<ArtikalIdDTO> setImage(@RequestParam("image") MultipartFile file, Principal principal) throws IOException {
+
+
+        Artikal artikal = new Artikal();
+        artikal.setPutanjaSlike(ImageSaveOpen.saveImage(file));
+        artikal.setProdavac(prodavacService.findByUsername(principal.getName()));
+        artikal = artikalService.save(artikal);
+        Long id = artikal.getId();
+        ArtikalIdDTO artikalIdDTO = new ArtikalIdDTO();
+        artikalIdDTO.setId(id);
+
+        LoggerStatic.logInFile(ArtikalController.class, "Kreiran je artikal.");
+
+        return new ResponseEntity<>(artikalIdDTO, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('PRODAVAC')")
     @PutMapping(value = "/{id}", consumes = "application/json")
     public ResponseEntity<ArtikalDTO> updateArtikal(@PathVariable("id") long id,
-                                                    @RequestBody ArtikalDTO artikalDTO, Principal principal){
+                                                    @RequestBody ArtikalBackendDTO artikalDTO, Principal principal) throws IOException {
 
         Artikal artikal = artikalService.findOne(id);
-        System.out.println(id);
         if(artikal == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         artikal.setNaziv(artikalDTO.getNaziv());
         artikal.setCena(artikalDTO.getCena());
         artikal.setOpis(artikalDTO.getOpis());
-        artikal.setPutanjaSlike(artikalDTO.getPutanjaSlike());
+        //artikal.setPutanjaSlike(ImageSaveOpen.saveImage(artikalDTO.getSlika()));
         artikal.setProdavac(prodavacService.findByUsername(principal.getName()));
 
         artikal = artikalService.save(artikal);

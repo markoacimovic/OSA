@@ -11,7 +11,7 @@ const Login = () => {
 
     async function login() {
         try {
-            await AuthService.login(loginCredentials)
+            await AuthService.login(loginCredentials).then((e) => e === undefined ? setWarning("Neuspesno prijavljivanje") : "")
         } catch (e){
             console.error(e)
         }
@@ -29,8 +29,7 @@ const Login = () => {
             setWarning("Sva polja moraju biti popunjena")
             return;
         }
-        login().catch((e) => e === undefined ? setWarning("Neuspesno prijavljivanje") : "")
-
+        login()
     }
 
     return(

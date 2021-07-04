@@ -14,16 +14,16 @@ public class Artikal {
     @Column(name = "id_artikal", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "naziv", unique = false, nullable = false)
+    @Column(name = "naziv", unique = false, nullable = true)
     private String naziv;
 
-    @Column(name = "opis", unique = false, nullable = false)
+    @Column(name = "opis", unique = false, nullable = true)
     private String opis;
 
-    @Column(name = "cena", unique = false, nullable = false)
+    @Column(name = "cena", unique = false, nullable = true)
     private Double cena;
 
-    @Column(name = "putanja_slike", unique = false, nullable = false)
+    @Column(name = "putanja_slike", unique = false, nullable = true)
     private String putanjaSlike;
 
     @ManyToOne

@@ -11,6 +11,12 @@ const KupacHeader = () => {
             <li className="nav-item">
                 <Link className="nav-link" to="/porudzbine">Porudzbine</Link>
             </li>
+            <li>
+                <Link className="nav-link" to="/korisnik">Vasi podaci</Link>
+            </li>
+            <li>
+                <Link className="nav-link" to="/korisnik/lozinka">Promena lozinke</Link>
+            </li>
             <Logout/>
         </ul>
     )

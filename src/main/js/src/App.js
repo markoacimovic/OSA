@@ -13,6 +13,8 @@ import Porudzbine from "./pages/kupci/Porudzbine";
 import EditArtikal from "./pages/artikli/EditArtikal";
 import PrivateRoute from "./components/PrivateRoute";
 import AllUsers from "./pages/administrator/AllUsers";
+import ChangeUserInfo from "./pages/ChangeUserInfo";
+import PasswordChange from "./pages/PasswordChange";
 
 function App() {
   return (
@@ -32,6 +34,10 @@ function App() {
                     </Switch>
                     <Switch>
                         <PrivateRoute roles={["ROLE_KUPAC"]} path="/porudzbine" component={Porudzbine}/>
+                    </Switch>
+                    <Switch>
+                        <PrivateRoute roles={["ROLE_PRODAVAC", "ROLE_KUPAC", "ROLE_ADMINISTRATOR"]} path="/korisnik/lozinka" component={PasswordChange}/>
+                        <PrivateRoute roles={["ROLE_PRODAVAC", "ROLE_KUPAC", "ROLE_ADMINISTRATOR"]} path="/korisnik" component={ChangeUserInfo}/>
                     </Switch>
                     <Switch>
                         <PrivateRoute roles={["ROLE_ADMINISTRATOR"]} path="/korisnici" component={AllUsers}/>

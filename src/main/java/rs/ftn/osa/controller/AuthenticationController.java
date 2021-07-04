@@ -3,6 +3,7 @@ package rs.ftn.osa.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +27,7 @@ import rs.ftn.osa.model.enums.UserRole;
 import rs.ftn.osa.service.IAdministratorService;
 import rs.ftn.osa.service.IKupacService;
 import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.support.LoggerStatic;
 
 import javax.annotation.security.PermitAll;
 import java.security.Principal;
@@ -77,6 +79,9 @@ public class AuthenticationController {
                 kupac.setUserRole(UserRole.KUPAC);
 
                 kupacService.save(kupac);
+
+                LoggerStatic.logInFile(AuthenticationController.class, "Registrovao se " + registracijaDTO.getUsername());
+
                 return new ResponseEntity<>(CREATED);
             }
             return new ResponseEntity<>(CONFLICT);
@@ -96,6 +101,9 @@ public class AuthenticationController {
             prodavac.setUserRole(UserRole.PRODAVAC);
 
             prodavacService.save(prodavac);
+
+            LoggerStatic.logInFile(AuthenticationController.class, "Registrovao se " + registracijaDTO.getUsername());
+
             return new ResponseEntity<>(CREATED);
         }
         return new ResponseEntity<>(CONFLICT);
@@ -126,6 +134,8 @@ public class AuthenticationController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        LoggerStatic.logInFile(AuthenticationController.class, "Ulogovan je " + prijavaDTO.getUsername());
+
        try {
            UserDetails userDetails = userDetailsService.loadUserByUsername(prijavaDTO.getUsername());
            return ResponseEntity.ok(tokenUtils.generateToken(userDetails));
@@ -134,10 +144,11 @@ public class AuthenticationController {
        }
     }
 
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR, KUPAC, PRODAVAC')")
     @PostMapping(value = "/change-password", consumes = "application/json")
     public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO, Principal principal){
 
-        if(changePasswordDTO.getNewPassword() != changePasswordDTO.getNewRepeatedPassword()){
+        if(!changePasswordDTO.getNewPassword().equals(changePasswordDTO.getNewRepeatedPassword())){
             return new ResponseEntity<>(BAD_REQUEST);
         }
 

@@ -5,7 +5,6 @@ import {useHistory} from "react-router";
 const PorudzbinaRow = ({porudzbina}) => {
 
     const [por, setPor] = useState(porudzbina)
-    console.log(por)
     const [error, setError] = useState("")
     const history = useHistory()
     const style = {

@@ -6,17 +6,20 @@ import NarudzbinaService from "../../services/NarudzbinaService";
 import Comment from "../../components/Comment";
 import {TokenService} from "../../services/auth/TokenService";
 import {AuthService} from "../../services/auth/AuthService";
+import {Dialog, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
+import CartRow from "../../components/kupci/CartRow";
 
 const Artikli = () => {
 
     const [artikli, setArtikli] = useState([])
     const [cart, setCart] = useState([])
     const [comments, setComments] = useState([])
+    const [open, setOpen] = useState(false)
+    const [ukupnaCena, setUkupnaCena] = useState(0.0)
     const token = TokenService.getToken()
     const role = AuthService.getRole()
-
-    //TODO Ovde prebaciti na stranicu koja prikazuje sta je kupljeno
     const history = useHistory()
+
     const {username} = useParams()
 
     async function fetchArtili() {
@@ -71,9 +74,31 @@ const Artikli = () => {
         duplicates()
         korpa = duplicates()
         create(korpa)
-        console.log(korpa)
+        history.push("/")
     }
 
+    const openPopup = () => {
+        let korpa
+        check()
+        duplicates()
+        korpa = duplicates()
+        setOpen(true)
+        setCart(korpa)
+    }
+
+    const plus = () => {
+        let uk = 0
+        let ukupno = 0
+        cart.forEach((order) => {
+            uk = order.cena * order.kolicina
+            ukupno = ukupno + uk
+        })
+        setUkupnaCena(ukupno)
+    }
+
+    useEffect(()=>{
+        plus()
+    },[cart])
     return(
         <div className="container-fluid">
             {artikli.map((artikal, index)=>(
@@ -81,7 +106,7 @@ const Artikli = () => {
                 ))}
             {
                 token && role === "ROLE_KUPAC" ? <div className="row">
-                <button className="btn btn-danger offset-md-4" style={{marginTop: 30}} onClick={click}>Zavrsi kupovinu</button>
+                <button className="btn btn-danger offset-md-4" style={{marginTop: 30}} onClick={openPopup}>Zavrsi kupovinu</button>
                 </div> : null
             }
             <div className="container-fluid">
@@ -90,6 +115,19 @@ const Artikli = () => {
                     <Comment key={index} komentar={komentar}/>
                 ))}
             </div>
+            <Dialog open={open} onClose={() => {setOpen(false)}}>
+                <DialogTitle>Vasa porudzbina</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {cart.map( (order, index) =>
+                            (<CartRow key={index} order={order}/>))}
+                        <br/>
+                        {"Ukupna cena: "+ ukupnaCena}
+                    </DialogContentText>
+                </DialogContent>
+                <button className="btn btn-warning" onClick={() => {setOpen(false)}}>Odustani</button>
+                {cart.length > 0 ?<button className="btn btn-danger" onClick={click}>Poruci</button> : null}
+            </Dialog>
         </div>
     )
 }

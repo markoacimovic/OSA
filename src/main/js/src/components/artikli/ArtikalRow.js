@@ -9,7 +9,9 @@ const ArtikalRow = ({artikal, artikli, setArtikli, cart, setCart}) => {
 
     const [item, setItem] = useState({
         artikalId: artikal.id,
-        kolicina: 0,
+        naziv: artikal.naziv,
+        cena: artikal.cena,
+        kolicina: 0
     })
     const token = TokenService.getToken()
     const role = AuthService.getRole()
