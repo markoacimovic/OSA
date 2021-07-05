@@ -59,16 +59,6 @@ public class Prodavac extends Korisnik {
         this.artikli = artikli;
     }
 
-//    public Prodavac(ProdavacDTO prodavacDTO) {
-//        this.id = prodavacDTO.getId();
-//        this.ime = prodavacDTO.getIme();
-//        this.prezime = prodavacDTO.getPrezime();
-//        this.username = prodavacDTO.getUsername();
-//        this.adresa = prodavacDTO.getAdresa();
-//        this.poslujeOd = prodavacDTO.getPoslujeOd();
-//        this.email = prodavacDTO.getEmail();
-//    }
-
     public LocalDate getPoslujeOd() {
         return poslujeOd;
     }

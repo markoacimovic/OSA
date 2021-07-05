@@ -42,16 +42,16 @@ public class AkcijaController {
         return new ResponseEntity<>(new AkcijaDTO(akcija), HttpStatus.OK);
     }
 
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<AkcijaDTO> createAkcija(@RequestBody AkcijaDTO akcijaDTO) {
-
-        Akcija akcija = new Akcija(akcijaDTO);
-        akcija.setArtikli(new HashSet<>()); //Izvuces iz baze
-        akcija.setProdavac(new Prodavac()); //Izvuces iz baze
-
-        return new ResponseEntity<>(new AkcijaDTO(akcija), HttpStatus.CREATED);
-
-    }
+//    @PostMapping(consumes = "application/json")
+//    public ResponseEntity<AkcijaDTO> createAkcija(@RequestBody AkcijaDTO akcijaDTO) {
+//
+//        Akcija akcija = new Akcija(akcijaDTO);
+//        akcija.setArtikli(new HashSet<>()); //Izvuces iz baze
+//        akcija.setProdavac(new Prodavac()); //Izvuces iz baze
+//
+//        return new ResponseEntity<>(new AkcijaDTO(akcija), HttpStatus.CREATED);
+//
+//    }
 
     @PutMapping(consumes = "application/json", value = "/{id}")
     public ResponseEntity<AkcijaDTO> editAkcija(@RequestBody AkcijaDTO akcijaDTO, @PathVariable(name = "id") Long id) {

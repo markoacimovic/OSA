@@ -55,15 +55,6 @@ public class Porudzbina {
         this.stavke = stavke;
     }
 
-    public Porudzbina(PorudzbinaDTO porudzbinaDTO) {
-        this.id = porudzbinaDTO.getId();
-        this.satnica = porudzbinaDTO.getSatnica();
-        this.dostavljeno = porudzbinaDTO.isDostavljeno();
-        this.ocena = porudzbinaDTO.getOcena();
-        this.komentar = porudzbinaDTO.getKomentar();
-        this.anonimniKomentar = porudzbinaDTO.isAnonimniKomentar();
-    }
-
     public Long getId() {
         return id;
     }

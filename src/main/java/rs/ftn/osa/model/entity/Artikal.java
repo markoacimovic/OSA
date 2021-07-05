@@ -68,15 +68,6 @@ public class Artikal {
         this.stavke = stavke;
     }
 
-    public Artikal(ArtikalDTO artikalDTO) {
-        this.id = artikalDTO.getId();
-        this.naziv = artikalDTO.getNaziv();
-        this.opis = artikalDTO.getOpis();
-        this.cena = artikalDTO.getCena();
-        this.putanjaSlike = artikalDTO.getPutanjaSlike();
-        ;
-    }
-
     public Long getId() {
         return id;
     }

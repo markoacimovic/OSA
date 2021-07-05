@@ -33,11 +33,6 @@ public class Stavka {
         this.artikal = artikal;
     }
 
-    public Stavka(StavkaDTO stavkaDTO) {
-        this.id = stavkaDTO.getId();
-        this.kolicina = stavkaDTO.getKolicina();
-    }
-
     public Long getId() {
         return id;
     }

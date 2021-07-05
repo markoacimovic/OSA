@@ -33,14 +33,6 @@ public class Kupac extends Korisnik {
         this.adresa = adresa;
     }
 
-    public Kupac(KupacDTO kupacDTO) {
-        this.id = kupacDTO.getId();
-        this.ime = kupacDTO.getIme();
-        this.prezime = kupacDTO.getPrezime();
-        this.username = kupacDTO.getUsername();
-        this.adresa = kupacDTO.getAdresa();
-    }
-
     public String getAdresa() {
         return adresa;
     }

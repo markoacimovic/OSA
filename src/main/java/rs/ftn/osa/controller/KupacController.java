@@ -43,16 +43,16 @@ public class KupacController {
         return new ResponseEntity<>(new KupacDTO(kupac), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<KupacDTO> createKupac(@RequestBody KupacDTO kupacDTO) {
-
-        Kupac kupac = new Kupac(kupacDTO);
-        kupac.setPorudzbine(new HashSet<>());
-        kupac.setBlokiran(false);
-        kupacService.save(kupac);
-
-        return new ResponseEntity<>(new KupacDTO(kupac), HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<KupacDTO> createKupac(@RequestBody KupacDTO kupacDTO) {
+//
+//        Kupac kupac = new Kupac(kupacDTO);
+//        kupac.setPorudzbine(new HashSet<>());
+//        kupac.setBlokiran(false);
+//        kupacService.save(kupac);
+//
+//        return new ResponseEntity<>(new KupacDTO(kupac), HttpStatus.CREATED);
+//    }
 
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     @PutMapping(value = "/{id}", consumes = "application/json")

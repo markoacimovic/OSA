@@ -48,14 +48,14 @@ public class PorudzbinaController {
 
         return new ResponseEntity<>(new PorudzbinaDTO(porudzbina), OK);
     }
-
-    @PostMapping
-    public ResponseEntity<PorudzbinaDTO> createPorudzbina(@RequestBody PorudzbinaDTO porudzbinaDTO) {
-
-        Porudzbina porudzbina = new Porudzbina(porudzbinaDTO);
-        porudzbinaService.save(porudzbina);
-        return new ResponseEntity<>(new PorudzbinaDTO(porudzbina), CREATED);
-    }
+//
+//    @PostMapping
+//    public ResponseEntity<PorudzbinaDTO> createPorudzbina(@RequestBody PorudzbinaDTO porudzbinaDTO) {
+//
+//        Porudzbina porudzbina = new Porudzbina(porudzbinaDTO);
+//        porudzbinaService.save(porudzbina);
+//        return new ResponseEntity<>(new PorudzbinaDTO(porudzbina), CREATED);
+//    }
 
     @PreAuthorize("hasRole('KUPAC')")
     @PutMapping(value = "/{id}")

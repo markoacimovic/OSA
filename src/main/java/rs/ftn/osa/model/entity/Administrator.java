@@ -20,13 +20,4 @@ public class Administrator extends Korisnik {
         super(ime, prezime, username, password, blokiran, tipKorisnika);
     }
 
-    public Administrator(AdministratorDTO administratorDTO) {
-
-        this.id = administratorDTO.getId();
-        this.ime = administratorDTO.getIme();
-        this.prezime = administratorDTO.getPrezime();
-        this.username = administratorDTO.getUsername();
-    }
-
-
 }

@@ -47,14 +47,6 @@ public class Akcija {
         this.prodavac = prodavac;
     }
 
-    public Akcija(AkcijaDTO akcijaDTO) {
-        this.id = akcijaDTO.getId();
-        this.procenat = akcijaDTO.getProcenat();
-        this.odKad = akcijaDTO.getOdKad();
-        this.doKad = akcijaDTO.getDoKad();
-        this.tekst = akcijaDTO.getTekst();
-    }
-
     public Akcija(int procenat, Date odKad, Date doKad, String tekst, Prodavac prodavac, Set<Artikal> artikli) {
         this.procenat = procenat;
         this.odKad = odKad;

@@ -67,14 +67,14 @@ public class StavkaController {
         return new ResponseEntity<>(new StavkaDTO(stavka), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<StavkaDTO> createStavka(@RequestBody StavkaDTO stavkaDTO) {
-
-        Stavka stavka = new Stavka(stavkaDTO);
-        stavkaService.save(stavka);
-
-        return new ResponseEntity<>(new StavkaDTO(stavka), HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<StavkaDTO> createStavka(@RequestBody StavkaDTO stavkaDTO) {
+//
+//        Stavka stavka = new Stavka(stavkaDTO);
+//        stavkaService.save(stavka);
+//
+//        return new ResponseEntity<>(new StavkaDTO(stavka), HttpStatus.CREATED);
+//    }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<StavkaDTO> editStavka(@RequestBody StavkaDTO stavkaDTO, @PathVariable(name = "id") Long id) {

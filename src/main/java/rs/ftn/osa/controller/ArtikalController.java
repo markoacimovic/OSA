@@ -51,7 +51,7 @@ public class ArtikalController {
         return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 
-    @PermitAll
+    @PreAuthorize("hasAnyRole('KUPAC, PRODAVAC, ADMINISTRATOR, ANONYMOUS')")
     @GetMapping("/{username}/artikli")
     public ResponseEntity<List<ArtikalDTO>> getArtikalsForProdavac(@PathVariable String username){
 
