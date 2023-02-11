@@ -32,6 +32,8 @@ const Artikal = () =>{
             </div>
             <div className="text-center text-dark col-md-12" style={{fontSize: 30}}>{artikal.cena}</div>
             <div className="text-center text-dark col-md-12" style={{fontSize: 30}}>{artikal.opis}</div>
+            <div className="text-center text-dark col-md-12" style={{fontSize: 30}}>{artikal.ocena}</div>
+            <div className="text-center text-dark col-md-12" style={{fontSize: 30}}>{artikal.brojKomentara}</div>
         </div>
     )
 }

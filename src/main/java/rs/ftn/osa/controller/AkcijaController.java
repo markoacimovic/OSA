@@ -1,24 +1,24 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.osa.dto.AkcijaDTO;
 import rs.ftn.osa.model.entity.Akcija;
-import rs.ftn.osa.model.entity.Prodavac;
-import rs.ftn.osa.service.IAkcijaService;
+import rs.ftn.osa.service.interfaces.IAkcijaService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @RequestMapping("/akcije")
 public class AkcijaController {
 
-    @Autowired
-    private IAkcijaService akcijaService;
+    private final IAkcijaService akcijaService;
+
+    public AkcijaController(IAkcijaService akcijaService) {
+        this.akcijaService = akcijaService;
+    }
 
     @GetMapping
     public ResponseEntity<List<AkcijaDTO>> getAkcije() {

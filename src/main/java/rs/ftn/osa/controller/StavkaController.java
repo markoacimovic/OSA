@@ -1,12 +1,9 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import rs.ftn.osa.dto.KorpaDTO;
 import rs.ftn.osa.dto.NarudzbinaDTO;
 import rs.ftn.osa.dto.PorudzbinaDTO;
 import rs.ftn.osa.dto.StavkaDTO;
@@ -14,11 +11,10 @@ import rs.ftn.osa.model.entity.Artikal;
 import rs.ftn.osa.model.entity.Kupac;
 import rs.ftn.osa.model.entity.Porudzbina;
 import rs.ftn.osa.model.entity.Stavka;
-import rs.ftn.osa.service.IArtikalService;
-import rs.ftn.osa.service.IKupacService;
-import rs.ftn.osa.service.IPorudzbinaService;
-import rs.ftn.osa.service.IStavkaService;
-import rs.ftn.osa.service.implementation.StavkaService;
+import rs.ftn.osa.service.interfaces.IArtikalService;
+import rs.ftn.osa.service.interfaces.IKupacService;
+import rs.ftn.osa.service.interfaces.IPorudzbinaService;
+import rs.ftn.osa.service.interfaces.IStavkaService;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -31,17 +27,17 @@ import java.util.List;
 @CrossOrigin
 public class StavkaController {
 
-    @Autowired
-    private IStavkaService stavkaService;
+    private final IStavkaService stavkaService;
+    private final IPorudzbinaService porudzbinaService;
+    private final IArtikalService artikalService;
+    private final IKupacService kupacService;
 
-    @Autowired
-    private IPorudzbinaService porudzbinaService;
-
-    @Autowired
-    private IArtikalService artikalService;
-
-    @Autowired
-    private IKupacService kupacService;
+    public StavkaController(IStavkaService stavkaService, IPorudzbinaService porudzbinaService, IArtikalService artikalService, IKupacService kupacService) {
+        this.stavkaService = stavkaService;
+        this.porudzbinaService = porudzbinaService;
+        this.artikalService = artikalService;
+        this.kupacService = kupacService;
+    }
 
     @GetMapping
     public ResponseEntity<List<StavkaDTO>> getStavke() {
@@ -114,7 +110,7 @@ public class StavkaController {
         if(kupac == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        porudzbina.setKupac(kupac);
+        porudzbina.setKupac(kupac.getUsername());
         porudzbina.setSatnica(new Date());
         porudzbina.setDostavljeno(false);
 
@@ -124,9 +120,9 @@ public class StavkaController {
             artikli.add(artikal);
 
             stavka = new Stavka();
-            stavka.setArtikal(artikal);
+            stavka.setArtikal(artikal.getId());
             stavka.setKolicina(Integer.parseInt(narudzbinaDTO.getKolicina()));
-            stavka.setPorudzbina(porudzbina);
+            stavka.setPorudzbina(porudzbina.getId());
             stavka = stavkaService.save(stavka);
             stavke.add(stavka);
         }

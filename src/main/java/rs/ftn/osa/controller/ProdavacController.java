@@ -1,6 +1,5 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,8 +18,11 @@ import java.util.List;
 @CrossOrigin
 public class ProdavacController {
 
-    @Autowired
-    private ProdavacService prodavacService;
+    private final ProdavacService prodavacService;
+
+    public ProdavacController(ProdavacService prodavacService) {
+        this.prodavacService = prodavacService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ProdavacDTO>> getProdavce() {
@@ -56,7 +58,7 @@ public class ProdavacController {
         prodavac.setPoslujeOd(prodavacDTO.getPoslujeOd());
         prodavac.setEmail(prodavacDTO.getEmail());
         prodavac.setAkcije(new HashSet<>());
-        prodavac.setArtikli(new HashSet<>());
+        prodavac.setArtikli("");
         prodavac.setBlokiran(false);
 
         prodavac = prodavacService.save(prodavac);

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Administrator;
 import rs.ftn.osa.repositories.AdministratorRepository;
-import rs.ftn.osa.service.IAdministratorService;
+import rs.ftn.osa.service.interfaces.IAdministratorService;
 
 import java.util.List;
 

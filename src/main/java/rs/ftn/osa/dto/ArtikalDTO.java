@@ -4,13 +4,15 @@ import rs.ftn.osa.model.entity.Artikal;
 
 public class ArtikalDTO {
 
-    private Long id;
+    private String id;
     private String naziv;
     private String opis;
     private Double cena;
     private String putanjaSlike;
+    private Double ocena;
+    private Integer brojKomentara;
 
-    public ArtikalDTO(Long id, String naziv, String opis, Double cena, String putanjaSlike) {
+    public ArtikalDTO(String id, String naziv, String opis, Double cena, String putanjaSlike) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
@@ -23,14 +25,26 @@ public class ArtikalDTO {
         this.naziv = artikal.getNaziv();
         this.opis = artikal.getOpis();
         this.cena = artikal.getCena();
-        this.putanjaSlike = artikal.getPutanjaSlike();
+        this.putanjaSlike = artikal.getFilename();
+        this.brojKomentara = artikal.getBrojKomentara();
+        this.ocena = artikal.getOcena();
     }
 
-    public Long getId() {
+    public ArtikalDTO(String id, String naziv, String opis, Double cena, String putanjaSlike, Double ocena, Integer brojKomentara) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.cena = cena;
+        this.putanjaSlike = putanjaSlike;
+        this.ocena = ocena;
+        this.brojKomentara = brojKomentara;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -66,4 +80,19 @@ public class ArtikalDTO {
         this.putanjaSlike = putanjaSlike;
     }
 
+    public Double getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(Double ocena) {
+        this.ocena = ocena;
+    }
+
+    public Integer getBrojKomentara() {
+        return brojKomentara;
+    }
+
+    public void setBrojKomentara(Integer brojKomentara) {
+        this.brojKomentara = brojKomentara;
+    }
 }

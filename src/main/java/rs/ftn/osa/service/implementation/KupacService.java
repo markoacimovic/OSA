@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Kupac;
 import rs.ftn.osa.repositories.KupacRepository;
-import rs.ftn.osa.service.IKupacService;
+import rs.ftn.osa.service.interfaces.IKupacService;
 
 import java.util.List;
 

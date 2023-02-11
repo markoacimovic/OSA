@@ -8,7 +8,7 @@ public class ArtikalBackendDTO {
     private String naziv;
     private String opis;
     private Double cena;
-    private CommonsMultipartFile slika;
+   // private MultipartFile[] files;
 
     public ArtikalBackendDTO() {
     }
@@ -37,11 +37,11 @@ public class ArtikalBackendDTO {
         this.cena = cena;
     }
 
-    public CommonsMultipartFile getSlika() {
-        return slika;
-    }
-
-    public void setSlika(CommonsMultipartFile slika) {
-        this.slika = slika;
-    }
+//    public MultipartFile[] getFiles() {
+//        return files;
+//    }
+//
+//    public void setFiles(MultipartFile[] files) {
+//        this.files = files;
+//    }
 }

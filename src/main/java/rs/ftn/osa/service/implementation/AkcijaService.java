@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Akcija;
 import rs.ftn.osa.repositories.AkcijaRepository;
-import rs.ftn.osa.service.IAkcijaService;
+import rs.ftn.osa.service.interfaces.IAkcijaService;
 
 import java.util.List;
 

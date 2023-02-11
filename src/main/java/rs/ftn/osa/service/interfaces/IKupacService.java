@@ -1,4 +1,4 @@
-package rs.ftn.osa.service;
+package rs.ftn.osa.service.interfaces;
 
 import rs.ftn.osa.model.entity.Kupac;
 

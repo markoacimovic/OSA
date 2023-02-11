@@ -1,43 +1,44 @@
 package rs.ftn.osa.model.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 import rs.ftn.osa.dto.StavkaDTO;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "stavke")
+@Document(indexName = "stavke")
+@Setting(settingPath = "/analyzers/serbianAnalyzer.json")
 public class Stavka {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_stavka", unique = true, nullable = false)
-    private Long id;
+    private String id;
 
-    @Column(name = "kolicina", unique = false, nullable = false)
+    @Field(type = FieldType.Integer)
     private int kolicina;
 
-    @ManyToOne
-    @JoinColumn(name = "porudzbina", referencedColumnName = "id_porudzbina", nullable = false)
-    private Porudzbina porudzbina;
+    @Field(type = FieldType.Keyword)
+    private String porudzbina;
 
-    @ManyToOne
-    @JoinColumn(name = "artikal", referencedColumnName = "id_artikal", nullable = false)
-    private Artikal artikal;
+    @Field(type = FieldType.Keyword)
+    private String artikal;
 
     public Stavka() {
     }
 
-    public Stavka(int kolicina, Porudzbina porudzbina, Artikal artikal) {
+    public Stavka(String id, int kolicina, String porudzbina, String artikal) {
+        this.id = id;
         this.kolicina = kolicina;
         this.porudzbina = porudzbina;
         this.artikal = artikal;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -49,19 +50,19 @@ public class Stavka {
         this.kolicina = kolicina;
     }
 
-    public Porudzbina getPorudzbina() {
+    public String getPorudzbina() {
         return porudzbina;
     }
 
-    public void setPorudzbina(Porudzbina porudzbina) {
+    public void setPorudzbina(String porudzbina) {
         this.porudzbina = porudzbina;
     }
 
-    public Artikal getArtikal() {
+    public String getArtikal() {
         return artikal;
     }
 
-    public void setArtikal(Artikal artikal) {
+    public void setArtikal(String artikal) {
         this.artikal = artikal;
     }
 

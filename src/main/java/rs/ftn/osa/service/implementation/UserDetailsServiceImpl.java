@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Korisnik;
-import rs.ftn.osa.service.IAdministratorService;
-import rs.ftn.osa.service.IKupacService;
-import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.service.interfaces.IAdministratorService;
+import rs.ftn.osa.service.interfaces.IKupacService;
+import rs.ftn.osa.service.interfaces.IProdavacService;
 
 import java.util.ArrayList;
 import java.util.List;

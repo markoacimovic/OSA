@@ -4,7 +4,8 @@ export const NarudzbinaService = {
     getNarudzbine,
     createNarudzbina,
     editNarudzbina,
-    getKomentari
+    getKomentari,
+    getDostavljeneNarudzbine
 }
 
 async function createNarudzbina(cart) {
@@ -14,6 +15,11 @@ async function createNarudzbina(cart) {
 async function getNarudzbine() {
     return await AxiosClient.get("porudzbine/porudzbine-kupca")
 }
+
+async function getDostavljeneNarudzbine() {
+    return await AxiosClient.get("porudzbine/dostavljene-porudzbine-kupca")
+}
+
 
 async function editNarudzbina(id, por) {
     return await AxiosClient.put(`porudzbine/${id}`, por)

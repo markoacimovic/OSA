@@ -1,25 +1,26 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rs.ftn.osa.dto.KupacDTO;
 import rs.ftn.osa.model.entity.Kupac;
-import rs.ftn.osa.service.implementation.KupacService;
+import rs.ftn.osa.service.interfaces.IKupacService;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @RestController
 @RequestMapping("/kupci")
 public class KupacController {
 
-    @Autowired
-    private KupacService kupacService;
+    private final IKupacService kupacService;
+
+    public KupacController(IKupacService kupacService) {
+        this.kupacService = kupacService;
+    }
 
     @GetMapping
     public ResponseEntity<List<KupacDTO>> getKupci() {

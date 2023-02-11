@@ -6,6 +6,7 @@ import {useHistory} from "react-router";
 const AddArtikal = () => {
 
     const [warning, setWarning] = useState("")
+    const [selectedFile, setSelectedFile] = useState()
     const [artikal, setArtikal] = useState({
         naziv: "",
         opis: "",
@@ -19,6 +20,18 @@ const AddArtikal = () => {
         setArtikal({...artikal, [name]: val})
     }
 
+    const handleFormFile = (e) => {
+        const val = e.target.files[0]
+        setSelectedFile(val)
+    }
+
+    async function sendFile() {
+        try {
+            await ArtikliService.createArtikal(artikal)
+        }catch (e){
+            console.error(e)
+        }
+    }
     async function update(id) {
         try {
             await ArtikliService.editArtikal(id, artikal)
@@ -48,7 +61,9 @@ const AddArtikal = () => {
             return;
         }
 
-        saveImage()
+        //setArtikal({...artikal, files: selectedFile})
+
+        sendFile()
 
         history.push("/prodavci/" + AuthService.getUsername())
     }
@@ -74,8 +89,9 @@ const AddArtikal = () => {
                                    placeholder="Opis" className="form-control"/>
                         </div>
                         <div className="form-group">
-                            <label>Slika </label>
-                            <input type="file" accept=".png, .jpg" className="form-control" onChange={e => setImage(e.target.files[0])}/>
+                            <label>PDF fajl </label>
+                            <input type="file" accept=".pdf" className="form-control" onChange={
+                                e => setSelectedFile(e.target.files[0])}/>
                         </div>
                         <p className="text-dark">{warning}</p>
                         <button className="btn-lg btn-danger" onClick={submit}>Dodaj artikal</button>

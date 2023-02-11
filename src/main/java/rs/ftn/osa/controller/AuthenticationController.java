@@ -1,12 +1,9 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,9 +21,9 @@ import rs.ftn.osa.model.entity.Prodavac;
 import rs.ftn.osa.model.enums.TipKorisnika;
 import rs.ftn.osa.model.enums.UserRole;
 
-import rs.ftn.osa.service.IAdministratorService;
-import rs.ftn.osa.service.IKupacService;
-import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.service.interfaces.IAdministratorService;
+import rs.ftn.osa.service.interfaces.IKupacService;
+import rs.ftn.osa.service.interfaces.IProdavacService;
 import rs.ftn.osa.support.LoggerStatic;
 
 import javax.annotation.security.PermitAll;
@@ -42,26 +39,23 @@ public class AuthenticationController {
 
     private static final String ROLE = "ROLE";
 
-    @Autowired
-    private IKupacService kupacService;
+    private final IKupacService kupacService;
+    private final IProdavacService prodavacService;
+    private final IAdministratorService administratorService;
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenUtils tokenUtils;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private IProdavacService prodavacService;
-
-    @Autowired
-    private IAdministratorService administratorService;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private TokenUtils tokenUtils;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    public AuthenticationController(IKupacService kupacService, IProdavacService prodavacService, IAdministratorService administratorService, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, TokenUtils tokenUtils, AuthenticationManager authenticationManager) {
+        this.kupacService = kupacService;
+        this.prodavacService = prodavacService;
+        this.administratorService = administratorService;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenUtils = tokenUtils;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PermitAll
     @PostMapping(value = "/registration", consumes = "application/json")

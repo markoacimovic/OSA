@@ -32,9 +32,6 @@ public class Akcija {
     @JoinColumn(name = "prodavac", referencedColumnName = "id_korisnik", nullable = false)
     private Prodavac prodavac;
 
-    @ManyToMany
-    @JoinColumn(name = "artikal", referencedColumnName = "id_artikal", nullable = false)
-    private Set<Artikal> artikli;
 
     public Akcija() {
     }
@@ -47,14 +44,6 @@ public class Akcija {
         this.prodavac = prodavac;
     }
 
-    public Akcija(int procenat, Date odKad, Date doKad, String tekst, Prodavac prodavac, Set<Artikal> artikli) {
-        this.procenat = procenat;
-        this.odKad = odKad;
-        this.doKad = doKad;
-        this.tekst = tekst;
-        this.prodavac = prodavac;
-        this.artikli = artikli;
-    }
 
     public Long getId() {
         return id;
@@ -104,14 +93,6 @@ public class Akcija {
         this.prodavac = prodavac;
     }
 
-    public Set<Artikal> getArtikli() {
-        return artikli;
-    }
-
-    public void setArtikli(Set<Artikal> artikli) {
-        this.artikli = artikli;
-    }
-
     @Override
     public String toString() {
         return "Akcija{" +
@@ -120,7 +101,6 @@ public class Akcija {
                 ", doKad=" + doKad +
                 ", tekst='" + tekst + '\'' +
                 ", prodavac=" + prodavac +
-                ", artikli=" + artikli +
                 '}';
     }
 }

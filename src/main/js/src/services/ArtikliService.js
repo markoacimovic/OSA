@@ -7,7 +7,8 @@ export const ArtikliService = {
     createArtikal,
     editArtikal,
     deleteArtikal,
-    saveImage
+    saveImage,
+    saveWithFile
 }
 
 async function getArtikli() {
@@ -38,4 +39,7 @@ async function saveImage(image){
     return await AxiosClient.post("artikli/slika", image)
 }
 
+async function saveWithFile(artikal){
+    return await AxiosClient.post("artikli/pdf", artikal)
+}
 export default ArtikliService

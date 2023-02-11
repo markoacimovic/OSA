@@ -1,27 +1,29 @@
 package rs.ftn.osa.service.implementation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Stavka;
 import rs.ftn.osa.repositories.StavkaRepository;
-import rs.ftn.osa.service.IStavkaService;
+import rs.ftn.osa.service.interfaces.IStavkaService;
 
 import java.util.List;
 
 @Service
 public class StavkaService implements IStavkaService {
 
-    @Autowired
-    private StavkaRepository stavkaRepository;
+    private final StavkaRepository stavkaRepository;
+
+    public StavkaService(StavkaRepository stavkaRepository) {
+        this.stavkaRepository = stavkaRepository;
+    }
 
     @Override
     public Stavka findOne(Long id) {
-        return stavkaRepository.getOne(id);
+        return null;
     }
 
     @Override
     public List<Stavka> findAll() {
-        return stavkaRepository.findAll();
+        return null;
     }
 
     @Override

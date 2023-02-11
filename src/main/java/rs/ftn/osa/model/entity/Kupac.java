@@ -1,12 +1,8 @@
 package rs.ftn.osa.model.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import rs.ftn.osa.dto.KupacDTO;
 import rs.ftn.osa.model.enums.UserRole;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Table(name = "kupac")
@@ -15,14 +11,14 @@ public class Kupac extends Korisnik {
     @Column(name = "adresa", unique = false, nullable = false)
     private String adresa;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kupac")
-    private Set<Porudzbina> porudzbine;
+    @Column(name = "porudzbine")
+    private String porudzbine;
 
     public Kupac() {
         super();
     }
 
-    public Kupac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, String adresa, Set<Porudzbina> porudzbine) {
+    public Kupac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, String adresa, String porudzbine) {
         super(ime, prezime, username, password, blokiran, tipKorisnika);
         this.adresa = adresa;
         this.porudzbine = porudzbine;
@@ -41,11 +37,11 @@ public class Kupac extends Korisnik {
         this.adresa = adresa;
     }
 
-    public Set<Porudzbina> getPorudzbine() {
+    public String getPorudzbine() {
         return porudzbine;
     }
 
-    public void setPorudzbine(Set<Porudzbina> porudzbine) {
+    public void setPorudzbine(String porudzbine) {
         this.porudzbine = porudzbine;
     }
 

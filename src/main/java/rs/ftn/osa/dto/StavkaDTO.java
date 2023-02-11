@@ -4,30 +4,31 @@ import rs.ftn.osa.model.entity.Stavka;
 
 public class StavkaDTO {
 
-    private Long id;
+    private String id;
     private int kolicina;
-    private long porudzbinaId;
-    private long artikalId;
+    private String porudzbinaId;
+    private String artikalId;
 
-    public StavkaDTO(Long id, int kolicina, long porudzbinaId, long artikalId) {
+
+    public StavkaDTO(Stavka stavka) {
+        this.id = stavka.getId();
+        this.kolicina = stavka.getKolicina();
+        this.porudzbinaId = stavka.getPorudzbina();
+        this.artikalId = stavka.getArtikal();
+    }
+
+    public StavkaDTO(String id, int kolicina, String porudzbinaId, String artikalId) {
         this.id = id;
         this.kolicina = kolicina;
         this.porudzbinaId = porudzbinaId;
         this.artikalId = artikalId;
     }
 
-    public StavkaDTO(Stavka stavka) {
-        this.id = stavka.getId();
-        this.kolicina = stavka.getKolicina();
-        this.porudzbinaId = stavka.getPorudzbina().getId();
-        this.artikalId = stavka.getArtikal().getId();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -39,19 +40,19 @@ public class StavkaDTO {
         this.kolicina = kolicina;
     }
 
-    public long getPorudzbinaId() {
+    public String getPorudzbinaId() {
         return porudzbinaId;
     }
 
-    public void setPorudzbina(long porudzbinaId) {
+    public void setPorudzbinaId(String porudzbinaId) {
         this.porudzbinaId = porudzbinaId;
     }
 
-    public long getArtikalId() {
+    public String getArtikalId() {
         return artikalId;
     }
 
-    public void setArtikal(long artikalId) {
+    public void setArtikalId(String artikalId) {
         this.artikalId = artikalId;
     }
 }

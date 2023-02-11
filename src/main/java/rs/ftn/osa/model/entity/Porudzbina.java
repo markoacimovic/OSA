@@ -1,50 +1,51 @@
 package rs.ftn.osa.model.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 import rs.ftn.osa.dto.PorudzbinaDTO;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "porudzbine")
+@Document(indexName = "porudzbine")
+@Setting(settingPath = "/analyzers/serbianAnalyzer.json")
 public class Porudzbina {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_porudzbina", unique = true, nullable = false)
-    private Long id;
+    private String id;
 
-    @Column(name = "satnica", unique = false, nullable = false)
+    @Field(type = FieldType.Date)
     private Date satnica;
 
-    @Column(name = "dostavljeno", unique = false, nullable = false)
+    @Field(type = FieldType.Boolean)
     private boolean dostavljeno;
 
-    @Column(name = "ocena", unique = false, nullable = true)
+    @Field(type = FieldType.Integer)
     private int ocena;
 
-    @Column(name = "komentar", unique = false, nullable = true)
+    @Field(type = FieldType.Text)
     private String komentar;
 
-    @Column(name = "anonimni_komentar", unique = false, nullable = true)
+    @Field(type = FieldType.Boolean)
     private boolean anonimniKomentar;
 
-    @Column(name = "arhivirani_komentar", unique = false, nullable = true)
+    @Field(type = FieldType.Boolean)
     private boolean arhiviraniKomentar;
 
-    @ManyToOne
-    @JoinColumn(name = "kupac", referencedColumnName = "id_korisnik", nullable = true)
-    private Kupac kupac;
+    @Field(type = FieldType.Keyword)
+    private String kupac;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "porudzbina")
+    @Field(type = FieldType.Nested)
     private Set<Stavka> stavke;
 
     public Porudzbina() {
 
     }
 
-    public Porudzbina(Date satnica, boolean dostavljeno, int ocena, String komentar, boolean anonimniKomentar, boolean arhiviraniKomentar, Kupac kupac, Set<Stavka> stavke) {
+    public Porudzbina(Date satnica, boolean dostavljeno, int ocena, String komentar, boolean anonimniKomentar, boolean arhiviraniKomentar, String kupac, Set<Stavka> stavke) {
         this.satnica = satnica;
         this.dostavljeno = dostavljeno;
         this.ocena = ocena;
@@ -55,11 +56,11 @@ public class Porudzbina {
         this.stavke = stavke;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -111,11 +112,11 @@ public class Porudzbina {
         this.arhiviraniKomentar = arhiviraniKomentar;
     }
 
-    public Kupac getKupac() {
+    public String getKupac() {
         return kupac;
     }
 
-    public void setKupac(Kupac kupac) {
+    public void setKupac(String kupac) {
         this.kupac = kupac;
     }
 

@@ -1,6 +1,5 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,9 +8,9 @@ import rs.ftn.osa.dto.UserInfoDTO;
 import rs.ftn.osa.model.entity.Administrator;
 import rs.ftn.osa.model.entity.Kupac;
 import rs.ftn.osa.model.entity.Prodavac;
-import rs.ftn.osa.service.IAdministratorService;
-import rs.ftn.osa.service.IKupacService;
-import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.service.interfaces.IAdministratorService;
+import rs.ftn.osa.service.interfaces.IKupacService;
+import rs.ftn.osa.service.interfaces.IProdavacService;
 
 import java.security.Principal;
 
@@ -20,14 +19,15 @@ import java.security.Principal;
 @CrossOrigin
 public class KorisnikController {
 
-    @Autowired
-    private IKupacService kupacService;
+    private final IKupacService kupacService;
+    private final IProdavacService prodavacService;
+    private final IAdministratorService administratorService;
 
-    @Autowired
-    private IProdavacService prodavacService;
-
-    @Autowired
-    private IAdministratorService administratorService;
+    public KorisnikController(IKupacService kupacService, IProdavacService prodavacService, IAdministratorService administratorService) {
+        this.kupacService = kupacService;
+        this.prodavacService = prodavacService;
+        this.administratorService = administratorService;
+    }
 
     @PreAuthorize("hasAnyRole('ADMINISTRATOR, KUPAC, PRODAVAC')")
     @GetMapping("/korisnik")

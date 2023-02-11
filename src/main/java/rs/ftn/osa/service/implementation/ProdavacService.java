@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.ftn.osa.model.entity.Prodavac;
 import rs.ftn.osa.repositories.ProdavacRepository;
-import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.service.interfaces.IProdavacService;
 
 import java.util.List;
 

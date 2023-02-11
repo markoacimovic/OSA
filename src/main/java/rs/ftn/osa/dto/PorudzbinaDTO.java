@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class PorudzbinaDTO {
 
-    private Long id;
+    private String id;
     private Date satnica;
     private boolean dostavljeno;
     private int ocena;
@@ -17,7 +17,7 @@ public class PorudzbinaDTO {
     public PorudzbinaDTO() {
     }
 
-    public PorudzbinaDTO(Long id, Date satnica, boolean dostavljeno, int ocena, String komentar, boolean anonimniKomentar) {
+    public PorudzbinaDTO(String id, Date satnica, boolean dostavljeno, int ocena, String komentar, boolean anonimniKomentar) {
         this.id = id;
         this.satnica = satnica;
         this.dostavljeno = dostavljeno;
@@ -43,11 +43,11 @@ public class PorudzbinaDTO {
         this.prodavac = prodavac;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

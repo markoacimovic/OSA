@@ -2,17 +2,17 @@ package rs.ftn.osa.dto;
 
 public class NarudzbinaDTO {
 
-    private long artikalId;
+    private String artikalId;
     private String kolicina;
 
     public NarudzbinaDTO() {
     }
 
-    public long getArtikalId() {
+    public String getArtikalId() {
         return artikalId;
     }
 
-    public void setArtikalId(long artikalId) {
+    public void setArtikalId(String artikalId) {
         this.artikalId = artikalId;
     }
 

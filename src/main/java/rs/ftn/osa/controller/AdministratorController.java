@@ -1,6 +1,5 @@
 package rs.ftn.osa.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,9 +9,9 @@ import rs.ftn.osa.dto.KorisnikDTO;
 import rs.ftn.osa.model.entity.Korisnik;
 import rs.ftn.osa.model.entity.Kupac;
 import rs.ftn.osa.model.entity.Prodavac;
-import rs.ftn.osa.service.IAdministratorService;
-import rs.ftn.osa.service.IKupacService;
-import rs.ftn.osa.service.IProdavacService;
+import rs.ftn.osa.service.interfaces.IAdministratorService;
+import rs.ftn.osa.service.interfaces.IKupacService;
+import rs.ftn.osa.service.interfaces.IProdavacService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +22,15 @@ import java.util.List;
 @CrossOrigin
 public class AdministratorController {
 
-    @Autowired
-    private IAdministratorService administratorService;
+    private final IAdministratorService administratorService;
+    private final IProdavacService prodavacService;
+    private final IKupacService kupacService;
 
-    @Autowired
-    private IProdavacService prodavacService;
-
-    @Autowired
-    private IKupacService kupacService;
+    public AdministratorController(IKupacService kupacService, IAdministratorService administratorService, IProdavacService prodavacService){
+        this.administratorService = administratorService;
+        this.prodavacService = prodavacService;
+        this.kupacService = kupacService;
+    }
 
 
     @GetMapping("/all-users")

@@ -1,78 +1,86 @@
 package rs.ftn.osa.model.entity;
 
-import rs.ftn.osa.dto.ArtikalDTO;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "artikli")
+@Document(indexName = "artikli")
+@Setting(settingPath = "/analyzers/serbianAnalyzer.json")
 public class Artikal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_artikal", unique = true, nullable = false)
-    private Long id;
+    private String id;
 
-    @Column(name = "naziv", unique = false, nullable = true)
+    @Field(type = FieldType.Keyword)
     private String naziv;
 
-    @Column(name = "opis", unique = false, nullable = true)
+    @Field(type = FieldType.Text)
     private String opis;
 
-    @Column(name = "cena", unique = false, nullable = true)
+    @Field(type = FieldType.Double)
     private Double cena;
 
-    @Column(name = "putanja_slike", unique = false, nullable = true)
-    private String putanjaSlike;
+    @Field(type = FieldType.Keyword)
+    private String filename;
 
-    @ManyToOne
-    @JoinColumn(name = "prodavac", referencedColumnName = "id_korisnik", nullable = false)
-    private Prodavac prodavac;
+    @Field(type = FieldType.Keyword)
+    private String prodavac;
 
-    @ManyToMany
-    @JoinColumn(name = "akcija", referencedColumnName = "id_akcija", nullable = true)
-    private Set<Akcija> akcije;
+    @Field(type = FieldType.Keyword)
+    private String keywords;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "artikal")
+    @Field(type = FieldType.Double)
+    private Double ocena;
+
+    @Field(type = FieldType.Integer)
+    private Integer brojKomentara;
+
+    @Field(type = FieldType.Nested)
     private Set<Stavka> stavke;
 
     public Artikal() {
 
     }
 
-    public Artikal(String naziv, String opis, Double cena, String putanjaSlike, Prodavac prodavac) {
+    public Artikal(String naziv, String opis, Double cena, String filename, String prodavac) {
         this.naziv = naziv;
         this.opis = opis;
         this.cena = cena;
-        this.putanjaSlike = putanjaSlike;
+        this.filename = filename;
         this.prodavac = prodavac;
     }
 
-    public Artikal(String naziv, String opis, Double cena, String putanjaSlike, Prodavac prodavac, Set<Akcija> akcije) {
+    public Artikal(String naziv, String opis, Double cena, String filename, String prodavac, Set<Stavka> stavke) {
         this.naziv = naziv;
         this.opis = opis;
         this.cena = cena;
-        this.putanjaSlike = putanjaSlike;
+        this.filename = filename;
         this.prodavac = prodavac;
-        this.akcije = akcije;
-    }
-
-    public Artikal(String naziv, String opis, Double cena, String putanjaSlike, Prodavac prodavac, Set<Akcija> akcije, Set<Stavka> stavke) {
-        this.naziv = naziv;
-        this.opis = opis;
-        this.cena = cena;
-        this.putanjaSlike = putanjaSlike;
-        this.prodavac = prodavac;
-        this.akcije = akcije;
         this.stavke = stavke;
     }
 
-    public Long getId() {
+    public Artikal(String id, String naziv, String opis, Double cena, String filename, String prodavac, String keywords, Double ocena, Integer brojKomentara, Set<Stavka> stavke) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.cena = cena;
+        this.filename = filename;
+        this.prodavac = prodavac;
+        this.keywords = keywords;
+        this.ocena = ocena;
+        this.brojKomentara = brojKomentara;
+        this.stavke = stavke;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -100,28 +108,44 @@ public class Artikal {
         this.cena = cena;
     }
 
-    public String getPutanjaSlike() {
-        return putanjaSlike;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setPutanjaSlike(String putanjaSlike) {
-        this.putanjaSlike = putanjaSlike;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public Prodavac getProdavac() {
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public Double getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(Double ocena) {
+        this.ocena = ocena;
+    }
+
+    public Integer getBrojKomentara() {
+        return brojKomentara;
+    }
+
+    public void setBrojKomentara(Integer brojKomentara) {
+        this.brojKomentara = brojKomentara;
+    }
+
+    public String getProdavac() {
         return prodavac;
     }
 
-    public void setProdavac(Prodavac prodavac) {
+    public void setProdavac(String prodavac) {
         this.prodavac = prodavac;
-    }
-
-    public Set<Akcija> getAkcije() {
-        return akcije;
-    }
-
-    public void setAkcije(Set<Akcija> akcije) {
-        this.akcije = akcije;
     }
 
     public Set<Stavka> getStavke() {
@@ -138,9 +162,8 @@ public class Artikal {
                 "naziv='" + naziv + '\'' +
                 ", opis='" + opis + '\'' +
                 ", cena=" + cena +
-                ", putanjaSlike='" + putanjaSlike + '\'' +
+                ", putanjaSlike='" + filename + '\'' +
                 ", prodavac=" + prodavac +
-                ", akcije=" + akcije +
                 '}';
     }
 }

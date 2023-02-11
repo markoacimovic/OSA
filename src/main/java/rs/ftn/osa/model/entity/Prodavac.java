@@ -28,8 +28,8 @@ public class Prodavac extends Korisnik {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "prodavac")
     private Set<Akcija> akcije;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "prodavac")
-    private Set<Artikal> artikli;
+    @Column(name = "artikli")
+    private String artikli;
 
     public Prodavac() {
         super();
@@ -42,7 +42,7 @@ public class Prodavac extends Korisnik {
         this.adresa = adresa;
     }
 
-    public Prodavac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, LocalDate poslujeOd, String email, String adresa, Set<Artikal> artikli) {
+    public Prodavac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, LocalDate poslujeOd, String email, String adresa, String artikli) {
         super(ime, prezime, username, password, blokiran, tipKorisnika);
         this.poslujeOd = poslujeOd;
         this.email = email;
@@ -50,7 +50,7 @@ public class Prodavac extends Korisnik {
         this.artikli = artikli;
     }
 
-    public Prodavac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, LocalDate poslujeOd, String email, String adresa, Set<Akcija> akcije, Set<Artikal> artikli) {
+    public Prodavac(String ime, String prezime, String username, String password, boolean blokiran, UserRole tipKorisnika, LocalDate poslujeOd, String email, String adresa, Set<Akcija> akcije, String artikli) {
         super(ime, prezime, username, password, blokiran, tipKorisnika);
         this.poslujeOd = poslujeOd;
         this.email = email;
@@ -99,11 +99,11 @@ public class Prodavac extends Korisnik {
         this.akcije = akcije;
     }
 
-    public Set<Artikal> getArtikli() {
+    public String getArtikli() {
         return artikli;
     }
 
-    public void setArtikli(Set<Artikal> artikli) {
+    public void setArtikli(String artikli) {
         this.artikli = artikli;
     }
 

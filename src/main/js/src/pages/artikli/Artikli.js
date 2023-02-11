@@ -8,6 +8,7 @@ import {TokenService} from "../../services/auth/TokenService";
 import {AuthService} from "../../services/auth/AuthService";
 import {Dialog, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
 import CartRow from "../../components/kupci/CartRow";
+import ArtikalSearch from "../../components/search/ArtikalSearch";
 
 const Artikli = () => {
 
@@ -52,7 +53,7 @@ const Artikli = () => {
     }
 
     const duplicates = () => {
-        let list = []
+        let list
         const set = new Set(cart)
 
         list = [...set]
@@ -101,6 +102,7 @@ const Artikli = () => {
     },[cart])
     return(
         <div className="container-fluid">
+            <ArtikalSearch artikli={setArtikli}/>
             {artikli.map((artikal, index)=>(
                 <ArtikalRow key={index} artikal={artikal} artikli={artikli} setArtikli={setArtikli} cart={cart} setCart={setCart}/>
                 ))}
